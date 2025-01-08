@@ -1,7 +1,9 @@
-import { ProductsService } from './products.service';
 import { inject, Injectable } from '@angular/core';
+import { ProductsService } from './products.service';
 import { Product } from '../../shared/interfaces/product.interface';
 import { signalSlice } from 'ngxtension/signal-slice';
+import { map, catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 interface State {
   products: Product[];
@@ -9,7 +11,7 @@ interface State {
 }
 
 @Injectable()
-export class ProductsSateService {
+export class ProductsStateService {
   private productsService = inject(ProductsService);
 
   private initialState: State = {
@@ -20,9 +22,11 @@ export class ProductsSateService {
   state = signalSlice({
     initialState: this.initialState,
     sources: [
-      this.productsService
-      .getProducts()
-      .pipe( map((products) => ({ products, status: 'success' as const }))
+      this.productsService.getProducts().pipe(
+        map((products) => ({
+          products,
+          status: 'success' as const,
+        })),
       ),
     ],
   });
