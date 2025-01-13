@@ -1,3 +1,4 @@
+import { Product } from './product.interface';
 
 export interface Product{
     category: string;
@@ -8,3 +9,9 @@ export interface Product{
     rating: {rate: number, count: number};
     title: string;
 }
+
+export interface ProductItemCart{
+    Product: Product;
+    quantity: number;
+}
+
