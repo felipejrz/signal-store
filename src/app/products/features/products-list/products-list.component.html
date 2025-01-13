@@ -1,20 +1,28 @@
 <div class="mx-auto max-w-screen-xl my-10">
-  @if (productsState.state.status() === "loading") {
-    <p class="text-black">Cargando...</p>
-  } @else {
-    <div class="flex justify-center">
-      <button
-        type="button"
-        (click)="changePage()"
-        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-      >
-        Mostrar más Productos
-      </button>
-    </div>
-    <div class="grid grid-cols-[repeat(4,300px)] gap-5">
-      @for (product of productsState.state().products; track product) {
-        <app-product-card class="block" [product]="product" />
-      }
-    </div>
+  @switch(productsState.state.status()){
+    @case ('loading') {
+      <p class="text-black">Cargando...</p>
+    }
+
+    @case ('error') {
+      <p class="text-black">Error...</p>
+    }
+
+    @default {
+      <div class="flex justify-center">
+        <button
+          type="button"
+          (click)="changePage()"
+          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+        >
+          Mostrar más Productos
+        </button>
+      </div>
+      <div class="grid grid-cols-[repeat(4,300px)] gap-5">
+        @for (product of productsState.state().products; track product) {
+          <app-product-card class="block" [product]="product" />
+        }
+      </div>
+    }
   }
 </div>
