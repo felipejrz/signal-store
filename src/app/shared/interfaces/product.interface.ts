@@ -1,5 +1,3 @@
-import { Product } from './product.interface';
-
 export interface Product{
     category: string;
     description: string;
@@ -11,7 +9,7 @@ export interface Product{
 }
 
 export interface ProductItemCart{
-    Product: Product;
+    product: Product;
     quantity: number;
 }
 
